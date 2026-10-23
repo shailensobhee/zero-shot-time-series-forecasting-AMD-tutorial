@@ -1,0 +1,10 @@
+# Core inference stack for Timestral on AMD GPUs.
+# PyTorch with ROCm is already present in the AMD Developer Cloud "PyTorch / ROCm"
+# image and in the rocm/pytorch Docker image, so do NOT pip-install torch there.
+# On those environments install only the lines below.
+#
+# Timestral standalone inference package (pulls safetensors + huggingface_hub):
+timestral @ git+https://github.com/mistralai/timestral.git
+numpy
+matplotlib
+pandas
