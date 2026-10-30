@@ -19,8 +19,7 @@ Both use the same open model and the same code. You pick the hardware to match t
 
 | File | What it does |
 |---|---|
-| [`timestral_amd_cpu_tutorial.ipynb`](timestral_amd_cpu_tutorial.ipynb) | **CPU notebook.** Run Timestral on AMD EPYC, reproduce the headline CPU latency, and see the NUMA / thread tuning. Executed on a real 2-socket EPYC with outputs embedded. |
-| [`timestral_amd_tutorial.ipynb`](timestral_amd_tutorial.ipynb) | **GPU notebook.** Run Timestral on AMD Instinct MI300X (ROCm), forecast with 21 quantiles, and benchmark fleet-scale throughput. Executed on a real MI300X. |
+| [`Timestral_Zero-Shot_Time-Series_Forecasting.ipynb`](Timestral_Zero-Shot_Time-Series_Forecasting.ipynb) | **The tutorial.** One GPU-primary notebook: run Timestral on AMD Instinct MI300X (ROCm) with 21 quantiles and fleet-scale throughput, and flip `RUN_ON = "cpu"` to run the AMD EPYC CPU path (AMD ZenDNN / zentorch accelerated). Executed on real MI300X and EPYC hardware with outputs embedded. |
 | [`CPU_BENCHMARKS.md`](CPU_BENCHMARKS.md) | Full CPU benchmark write-up, the tuning findings, and the AMD EPYC vs AMD Instinct MI300X comparison tables. |
 | [`forecast_demo.py`](forecast_demo.py) | The workflow as a single runnable script (auto-selects GPU/ROCm, `DEVICE=cpu` to force CPU). |
 | [`bench/`](bench/) | The CPU benchmark harness (`cpu_bench_worker.py`, `cpu_sweep.sh`) and the raw measured result JSON. |
@@ -73,7 +72,7 @@ pip install torch --index-url https://download.pytorch.org/whl/cpu   # CPU PyTor
 pip install "git+https://github.com/mistralai/timestral.git" numpy matplotlib
 
 DEVICE=cpu python forecast_demo.py
-# or open timestral_amd_cpu_tutorial.ipynb in Jupyter
+# or open Timestral_Zero-Shot_Time-Series_Forecasting.ipynb in Jupyter and set RUN_ON = "cpu"
 ```
 
 The CPU PyTorch wheel bundles oneDNN, which already uses the EPYC AVX-512 / BF16 paths. No extra math library is needed.
@@ -85,7 +84,7 @@ The CPU PyTorch wheel bundles oneDNN, which already uses the EPYC AVX-512 / BF16
 # and the rocm/pytorch Docker image, so only install Timestral + plotting libs:
 pip install "git+https://github.com/mistralai/timestral.git" matplotlib pandas numpy
 python forecast_demo.py                 # auto-selects the AMD GPU via ROCm
-# or open timestral_amd_tutorial.ipynb
+# or open Timestral_Zero-Shot_Time-Series_Forecasting.ipynb
 ```
 
 On ROCm, AMD GPUs are exposed through the same `torch.cuda` API:
